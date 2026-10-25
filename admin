@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Админ самбар</title>
+</head>
+<body>
+
+<script>
+const password = prompt("Нууц үг оруул:");
+
+if (password !== "1234") {
+    document.write("<h2>Хандах эрхгүй</h2>");
+    throw new Error("Access denied");
+}
+</script>
+
+<h2>Админ самбар</h2>
+
+<button onclick="location.reload()">Шинэчлэх</button>
+
+<ul id="list"></ul>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  onValue,
+  remove
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB1EYa0UH8PQMid5CEHjS2sR1ZM5kD1DN0",
+  authDomain: "mong-123.firebaseapp.com",
+  databaseURL: "https://mong-123-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "mong-123",
+  storageBucket: "mong-123.firebasestorage.app",
+  messagingSenderId: "971498618179",
+  appId: "1:971498618179:web:0df6ee78265156c85743f6"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+window.deleteUser = function(id) {
+    if(confirm("Устгах уу?")) {
+        remove(ref(db, "users/" + id));
+    }
+}
+
+onValue(ref(db, "users"), (snapshot) => {
+
+    const data = snapshot.val();
+    const list = document.getElementById("list");
+
+    list.innerHTML = "";
+
+    if (!data) {
+        list.innerHTML = "<li>Бүртгэл алга</li>";
+        return;
+    }
+
+    for (const id in data) {
+        list.innerHTML += `
+        <li>
+            ${data[id].name} - ${data[id].phone}
+            <button onclick="deleteUser('${id}')">
+                Устгах
+            </button>
+        </li>
+        `;
+    }
+});
+</script>
+
+</body>
+</html>
