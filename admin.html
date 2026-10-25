@@ -133,8 +133,9 @@ window.downloadCSV = function () {
 
     
 onValue(ref(db, "users"), (snapshot) => {
-    allData = data || {};
+  
     const data = snapshot.val();
+      allData = data || {};
     const tableBody = document.getElementById("tableBody");
 
     tableBody.innerHTML = "";
