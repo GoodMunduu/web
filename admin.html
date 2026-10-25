@@ -64,7 +64,28 @@ window.deleteUser = function(id) {
 onValue(ref(db, "users"), (snapshot) => {
 
     const data = snapshot.val();
-    const list = document.getElementById("list");
+ const tableBody = document.getElementById("tableBody");
+
+tableBody.innerHTML = "";
+
+if (!data) return;
+
+let no = 1;
+
+for (const id in data) {
+    tableBody.innerHTML += `
+    <tr>
+        <td>${no++}</td>
+        <td>${data[id].name}</td>
+        <td>${data[id].phone}</td>
+        <td>
+            <button onclick="deleteUser('${id}')">
+                Устгах
+            </button>
+        </td>
+    </tr>
+    `;
+}
 
     list.innerHTML = "";
 
