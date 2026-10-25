@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Бүртгэл</title>
+</head>
+<body>
+
+<h2>Нэр, утас бүртгэх</h2>
+
+<input type="text" id="name" placeholder="Нэр">
+<br><br>
+
+<input type="text" id="phone" placeholder="Утас">
+<br><br>
+
+<button onclick="saveData()">Хадгалах</button>
+
+<ul id="list"></ul>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  push,
+  onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB1EYa0UH8PQMid5CEHjS2sR1ZM5kD1DN0",
+  authDomain: "mong-123.firebaseapp.com",
+  databaseURL: "https://mong-123-default-rtdb.asia-southeast1.firebasedatabase.app",
+,
+  projectId: "mong-123",
+  storageBucket: "mong-123.firebasestorage.app",
+  messagingSenderId: "971498618179",
+  appId: "1:971498618179:web:0df6ee78265156c85743f6",
+  measurementId: "G-JX1S59K58E"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+window.saveData = function () {
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+
+  push(ref(db, "users"), {
+    name: name,
+    phone: phone
+  });
+};
+
+onValue(ref(db, "users"), (snapshot) => {
+
+  const data = snapshot.val();
+  const list = document.getElementById("list");
+
+  list.innerHTML = "";
+
+  for (let id in data) {
+      list.innerHTML += `
+        <li>
+          ${data[id].name} - ${data[id].phone}
+        </li>`;
+  }
+
+});
+
+</script>
+
+</body>
+</html>
+
