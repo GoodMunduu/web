@@ -56,7 +56,9 @@ if(password !== "1234"){
 <h1>Админ самбар</h1>
 
 <button onclick="location.reload()">Шинэчлэх</button>
-
+<button onclick="downloadCSV()">
+    CSV татах
+</button>
 <br><br>
 
 <table>
@@ -73,7 +75,7 @@ if(password !== "1234"){
 </table>
 
 <script type="module">
-
+let allData = {};
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
