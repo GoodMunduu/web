@@ -19,7 +19,18 @@ if (password !== "1234") {
 
 <button onclick="location.reload()">Шинэчлэх</button>
 
-<ul id="list"></ul>
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Нэр</th>
+            <th>Утас</th>
+            <th>Үйлдэл</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+</table>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
