@@ -130,8 +130,7 @@ window.downloadCSV = function () {
     document.body.removeChild(link);
 }
 
-const data = snapshot.val();
-allData = data || {};
+
     
 onValue(ref(db, "users"), (snapshot) => {
     allData = data || {};
