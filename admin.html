@@ -109,7 +109,7 @@ window.deleteUser = function(id){
 }
 
 onValue(ref(db, "users"), (snapshot) => {
-
+    allData = data || {};
     const data = snapshot.val();
     const tableBody = document.getElementById("tableBody");
 
